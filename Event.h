@@ -29,6 +29,17 @@ public:
   int display_time(); //display the time of the event
   int display_place(); //display the location of the event
 
+  //date functions:
+  int change_date(int date);
+  int display_date();
+  int compare(int to_compare);
+
+  //time functions
+  int change_start_time(int time, bool is_pm);
+  int set_duration(int duration);
+  int change_duration(int duration);
+  int display();
+  int compare(int time, bool is_pm);
 protected:
   char* name; //name of event
   char* people_going; //who is going
@@ -38,6 +49,11 @@ protected:
   char* street;
   char* city;
   char* state;
+
+  int date; //represented in 6 digits
+  int time; //represented in 4 digits (hours and mins)
+  bool is_pm;
+  int duration; //represented in 4 digits (hours and mins)
 };
 
 class Beach : public Event {
