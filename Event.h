@@ -18,6 +18,7 @@ class Event : public Time {
 public:
   Event();
   ~Event();
+  Event(const Event & source); //copy constructor
   int set_name(char* name); //set the name of the event
   int set_people(char* people); //set who is going to the event
   int change_name(char* name); //change the name of the event
