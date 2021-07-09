@@ -2,8 +2,9 @@
    Class: CS202 Summer 2021
    The Event class has information pertaining to 
    where the event takes place and who is going.
-   It inherits Time and therefore Date. This file
-   also contains the 3 classes that directly inherit Event:
+   It inherits Time, which manages when an event
+   will occur. This file also contains the 3 classes
+   that directly inherit Event:
    Beach, Shopping, and Restaurant.
 
    Last updated: July 6, 2021
@@ -84,9 +85,11 @@ public:
   ~Restaurant(); //destructor
   void read();
   void display(); //display restaurant details
-  void make_reservation(int time);
+  void contact_info(); //displays restaurant's phone number (made up)
+  void write_yelp_review(); //allows user to write a yelp review
 protected:
   std::string cuisine_type; //type of restaurant
   std::string name; //name of restaurant
   int budget; //how much you want to spend
+  std::string yelp_review;
 };
