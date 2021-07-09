@@ -10,19 +10,19 @@
    Last updated: July 6, 2021
  */
 
-#include "Nodes.h"
 #include <vector>
-#include <string>
+#include <cstring>
+#include <iostream>
 
 class Time {
+public:
   Time();
-  ~Time();
   void read();
-  void display();
-  void compare(int time, bool is_pm);
+  void display() const;
+  int compare(std::string input_time, bool input_is_pm) const;
 protected:
-  int date; //represented in 6 digits
-  int time; //represented in 4 digits (hours and mins)
+  std::string date; //represented in 6 digits
+  std::string time; //represented in 4 digits (hours and mins)
   bool is_pm;
 };
 
@@ -35,7 +35,7 @@ public:
   //read location of event:
   void read();
   void fun_fact(); //a function to print out a made up fun fact about the address
-  void display();
+  void display() const;
 protected:
   //pieces of an address:
   int street_num;
@@ -51,13 +51,13 @@ public:
   Beach(); //constructor
   Beach(const Beach & source); //copy constructor
   ~Beach(); //destructor
-  Beach(std::vector<std::string> items, char* directions, std::string food);
+  Beach(char* items, char* dir, char* f);
   void add_items(char* new_items); //add items to a vector of what to bring
   void remove_items(char* to_remove); //remove items from the vector
   void display(); //display beach plan info
   void check_weather(); //displays a pretend weather forecast
 protected:
-  std::vector<std::string> * items_to_bring; //a vector to store what to bring
+  char* items_to_bring; //what to bring to the beach
   char* directions; //directions to the beach
   char* food_plans; //what you are going to do for food
 };
@@ -68,10 +68,10 @@ public:
   Shopping(); //constructor
   ~Shopping(); //destructor
   Shopping(std::string stores, std::string buy_list, int budget);
-  void add_stores(std::string to_add); //add stores to the array of LLL
-  void remove_stores(std::string to_remove); //remove stores from the array of LLL
-  void add_items(std::string to_add); //add items to the array of LLL
-  void remove_items(std::string to_remove); //remove items from the LLL
+  void add_stores(std::string to_add); //add stores to the list
+  void remove_stores(std::string to_remove); //remove stores from the list
+  void add_items(std::string to_add); //add items to the list
+  void remove_items(std::string to_remove); //remove items from the list
   void display(); //display shopping details
 protected:
   std::string stores; //what stores to visit
