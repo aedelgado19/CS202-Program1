@@ -188,20 +188,31 @@ Beach::Beach(const Beach & source){
 
 //set up beach fields
 Beach::Beach(std::vector<std::string> items, char* dir, char* f){
+  items_to_bring = items;
   strcpy(directions, dir);
   strcpy(food_plans, f);
 }
 
-void Beach::add_items(char* new_items){
-  
+//passed in a char array of new items to add, adds to vector
+void Beach::add_items(std::vector<std::string> new_items){
+  for(std::vector<std::string>::iterator i = new_items.begin(); i!=new_items.end(); ++i){
+    items_to_bring.push_back(*i);
+  }
 }
 
-void Beach::remove_items(char* to_remove){
-
+//passed in a char array of items to remove, removes from vector
+void Beach::remove_items(std::vector<std::string> to_remove){
+  for(std::vector<std::string>::iterator i = items_to_bring.begin(); i!=items_to_bring.end(); ++i){
+    for(std::vector<std::string>::iterator j = to_remove.begin(); j!=to_remove.end(); ++j){
+      if((*i) == (*j)){
+	items_to_bring.erase(i);
+      }
+    }  
+  }
 }
 
 void Beach::display(){
-
+  
 }
 
 void Beach::check_weather(){

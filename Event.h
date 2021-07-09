@@ -55,8 +55,8 @@ public:
   Beach(const Beach & source); //copy constructor
   ~Beach(); //destructor
   Beach(std::vector<std::string> items, char* dir, char* f);
-  void add_items(char* new_items); //add items to a vector of what to bring
-  void remove_items(char* to_remove); //remove items from the vector
+  void add_items(std::vector<std::string> new_items); //add items to a vector of what to bring
+  void remove_items(std::vector<std::string> to_remove); //remove items from the vector
   void display(); //display beach plan info
   void check_weather(); //displays a pretend weather forecast
 protected:
