@@ -69,23 +69,21 @@ protected:
 class Shopping : public Event {
 public:
   Shopping(); //constructor
-  ~Shopping(); //destructor
-  Shopping(std::string stores, std::string buy_list, int budget);
-  void add_stores(std::string to_add); //add stores to the list
-  void remove_stores(std::string to_remove); //remove stores from the list
-  void add_items(std::string to_add); //add items to the list
-  void remove_items(std::string to_remove); //remove items from the list
+  Shopping(std::vector<std::string> s, std::vector<std::string> buy_list, int b);
+  void add_stores(std::vector<std::string> to_add); //add stores to the list
+  void remove_stores(std::vector<std::string> to_remove); //remove stores from the list
+  void add_items(std::vector<std::string> to_add); //add items to the list
+  void remove_items(std::vector<std::string> to_remove); //remove items from the list
   void display(); //display shopping details
 protected:
-  std::string stores; //what stores to visit
-  std::string what_to_buy; //shopping list
+  std::vector<std::string> stores; //what stores to visit
+  std::vector<std::string> what_to_buy; //shopping list
   int budget; //how much you want to spend
 };
 
 class Restaurant : public Event {
 public:
   Restaurant(); //constructor
-  ~Restaurant(); //destructor
   void read();
   void display(); //display restaurant details
   void contact_info(); //displays restaurant's phone number (made up)
@@ -94,5 +92,7 @@ protected:
   std::string cuisine_type; //type of restaurant
   std::string name; //name of restaurant
   int budget; //how much you want to spend
+  int stars; // how many stars the yelp review has
   std::string yelp_review;
+  bool reviewed; //whether or not a yelp review has been written
 };

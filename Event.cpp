@@ -64,7 +64,7 @@ int Time::compare(std::string input_time, bool input_is_pm) const{
 //******************* EVENT FUNCTIONS *****************
 
 //constructor with initialization list to initialize all fields
-Event::Event() : street_num(0), street(nullptr), city(nullptr), state(nullptr), name(nullptr), people_going(nullptr){
+Event::Event() : Time(), street_num(0), street(nullptr), city(nullptr), state(nullptr), name(nullptr), people_going(nullptr){
   
 }
 
@@ -138,6 +138,7 @@ void Event::read(){
 //a function to print out a pretend fun fact about the location of the event
 //in a real application, these facts would be real
 void Event::fun_fact(){
+  srand(time(NULL));
   int n = rand() % 5;
   if(n == 0){
     std::cout << "This address was where the Zodiac Killer was found." << std::endl;
@@ -166,7 +167,9 @@ void Event::display() const{
 }
 
 //******************* BEACH FUNCTIONS *****************
-Beach::Beach() : directions(nullptr), food_plans(nullptr){
+
+//initialization list to initialize all fields and call the parent constructor
+Beach::Beach() : Event(), directions(nullptr), food_plans(nullptr){
 
 }
 
@@ -202,19 +205,30 @@ void Beach::add_items(std::vector<std::string> new_items){
 
 //passed in a char array of items to remove, removes from vector
 void Beach::remove_items(std::vector<std::string> to_remove){
-  for(std::vector<std::string>::iterator i = items_to_bring.begin(); i!=items_to_bring.end(); ++i){
-    for(std::vector<std::string>::iterator j = to_remove.begin(); j!=to_remove.end(); ++j){
+  for(std::vector<std::string>::iterator j = to_remove.begin(); j!=to_remove.end(); ++j){
+    for(std::vector<std::string>::iterator i = items_to_bring.begin(); i!=items_to_bring.end(); ++i){
       if((*i) == (*j)){
 	items_to_bring.erase(i);
+	break;
       }
     }  
   }
 }
 
+//displays info about beach
 void Beach::display(){
-  
+  std::cout << "Items to bring: " << std::endl;
+  for(std::vector<std::string>::iterator i = items_to_bring.begin(); i!=items_to_bring.end(); ++i){
+    std::cout << (*i) << std::endl;
+  }
+  std::cout << "Directions: " << std::endl;
+  std::cout << "   " << directions << std::endl;
+  std::cout << "Food plans: " << std::endl;
+  std::cout << "   " << food_plans << std::endl;
 }
 
+//a function to display a pretend weather forecast (if this were a real
+//application, this would be accurate and not made up)
 void Beach::check_weather(){
   srand (time(NULL));
   int n = rand() % 36 + 75; //random number between 75 and 110 degrees
@@ -222,59 +236,131 @@ void Beach::check_weather(){
 }
 
 //******************* SHOPPING FUNCTIONS *****************
-Shopping::Shopping(){
+
+//initialization list to initialize fields and call the parent constructor
+Shopping::Shopping() : Event(), budget(0){
+  
+}
+
+//set up shopping fields
+Shopping::Shopping(std::vector<std::string> s, std::vector<std::string> buy_list, int b){
+  stores = s;
+  what_to_buy = buy_list;
+  budget = b;
+}
+
+//push back new items to the list of stores to visit
+void Shopping::add_stores(std::vector<std::string> to_add){
+  for(std::vector<std::string>::iterator i = to_add.begin(); i!=to_add.end(); ++i){
+    stores.push_back(*i);
+  }
+}
+
+//remove stores from the list
+void Shopping::remove_stores(std::vector<std::string> to_remove){
+  for(std::vector<std::string>::iterator j = to_remove.begin(); j!=to_remove.end(); ++j){
+    for(std::vector<std::string>::iterator i = stores.begin(); i!=stores.end(); ++i){
+      if((*i) == (*j)){
+	stores.erase(i);
+	break;
+      }
+    }  
+  }
 
 }
 
-Shopping::~Shopping(){
-
-}
-Shopping::Shopping(std::string stores, std::string buy_list, int budget){
-
-}
-
-void Shopping::add_stores(std::string to_add){
-
+//add items to buy to the list
+void Shopping::add_items(std::vector<std::string> to_add){
+  for(std::vector<std::string>::iterator i = to_add.begin(); i!=to_add.end(); ++i){
+    what_to_buy.push_back(*i);
+  }
 }
 
-void Shopping::remove_stores(std::string to_remove){
-
-}
-
-void Shopping::add_items(std::string to_add){
-
-}
-
-void Shopping::remove_items(std::string to_remove){
+//remove items to buy from the list
+void Shopping::remove_items(std::vector<std::string> to_remove){
+  for(std::vector<std::string>::iterator j = to_remove.begin(); j!=to_remove.end(); ++j){
+    for(std::vector<std::string>::iterator i = what_to_buy.begin(); i!=what_to_buy.end(); ++i){
+      if((*i) == (*j)){
+	what_to_buy.erase(i);
+	break;
+      }
+    }  
+  }
 
 }
 
+//display shopping info
 void Shopping::display(){
-
+  std::cout << "Stores to visit: " << std::endl;
+  for(std::vector<std::string>::iterator it = stores.begin(); it!=stores.end(); ++it){
+    std::cout << (*it) << std::endl;
+  }
+  std::cout << "List of items to buy: " << std::endl;
+  for(std::vector<std::string>::iterator i = what_to_buy.begin(); i!=what_to_buy.end(); ++i){
+    std::cout << (*i) << std::endl;
+  }
+  std::cout << "Budget" << budget << std::endl;
 }
 
 //******************* RESTAURANT FUNCTIONS *****************
 
-Restaurant::Restaurant(){
-
+//initialization list to initialize all fields and call parent constructor
+Restaurant::Restaurant() : Event(), cuisine_type(""), name(""), budget(0), yelp_review(""), reviewed(false){
+  
 }
 
-Restaurant::~Restaurant(){
-
-}
-
+//a function to read in all restaurant fields
 void Restaurant::read(){
-
+  std::string n;
+  std::string c;
+  int b = 0;
+  
+  std::cout << "Enter the name of the restaurant." << std::endl;
+  std::getline(std::cin, n);
+  std::cin.ignore(1000, '\n');
+  name = n;
+  std::cout << "Enter the cuisine type of " << n << std::endl;
+  std::getline(std::cin, c);
+  std::cin.ignore(1000, '\n');
+  cuisine_type = c;
+  std::cout << "Enter your budget for the restaurant." << std::endl;
+  std::cin >> b;
+  std::cin.ignore(1000, '\n');
+  budget = b;
 }
 
+//a function to display all restaurant details
 void Restaurant::display(){
-
+  std::cout << "Restaurant: " << name << std::endl;
+  std::cout << "Cuisine: " << cuisine_type << std::endl;
+  std::cout << "Budget: " << budget << std::endl;
+  if (reviewed == true){
+    std::cout << "Review: " << stars << " stars." << std::endl;
+    std::cout << yelp_review << std::endl;
+  }
 }
 
+//a function to display the restaurant's "phone number" (randomly generated)
+//in a real application, this would be an accurate number and not made up
 void Restaurant::contact_info(){
-
+  std::cout << "Restaurant's phone number: ";
+  srand(time(NULL));
+  for(int i = 0; i < 10; i++){
+    std::cout << rand() % 10;
+  }
 }
 
+//a function to let the user write a yelp review of the restaurant
 void Restaurant::write_yelp_review(){
+  int num = 0;
+  std::string rating;
 
+  std::cout << "How many stars would you rate this restaurant? (0-5)" << std::endl;
+  std::cin >> num;
+  std::cin.get();
+  std::cout << "Please add a description of your rating. " << std::endl;
+  std::getline(std::cin, rating);
+  std::cin.ignore(1000, '\n');
+  yelp_review = rating;
+  reviewed = true;
 }
