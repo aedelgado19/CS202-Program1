@@ -13,6 +13,9 @@
 #include <vector>
 #include <cstring>
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 class Time {
 public:
@@ -22,7 +25,7 @@ public:
   int compare(std::string input_time, bool input_is_pm) const;
 protected:
   std::string date; //represented in 6 digits
-  std::string time; //represented in 4 digits (hours and mins)
+  std::string event_time; //represented in 4 digits (hours and mins)
   bool is_pm;
 };
 
@@ -51,13 +54,13 @@ public:
   Beach(); //constructor
   Beach(const Beach & source); //copy constructor
   ~Beach(); //destructor
-  Beach(char* items, char* dir, char* f);
+  Beach(std::vector<std::string> items, char* dir, char* f);
   void add_items(char* new_items); //add items to a vector of what to bring
   void remove_items(char* to_remove); //remove items from the vector
   void display(); //display beach plan info
   void check_weather(); //displays a pretend weather forecast
 protected:
-  char* items_to_bring; //what to bring to the beach
+  std::vector<std::string> items_to_bring; //what to bring
   char* directions; //directions to the beach
   char* food_plans; //what you are going to do for food
 };
