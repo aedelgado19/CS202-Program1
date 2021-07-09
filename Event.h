@@ -9,102 +9,84 @@
    Last updated: July 6, 2021
  */
 
-#include "Time.h"
 #include "Nodes.h"
 #include <vector>
 #include <string>
+
+class Time {
+  Time();
+  ~Time();
+  void read();
+  void display();
+  void compare(int time, bool is_pm);
+protected:
+  int date; //represented in 6 digits
+  int time; //represented in 4 digits (hours and mins)
+  bool is_pm;
+};
 
 class Event : public Time {
 public:
   Event();
   ~Event();
   Event(const Event & source); //copy constructor
-  int set_name(char* name); //set the name of the event
-  int set_people(char* people); //set who is going to the event
-  int change_name(char* name); //change the name of the event
-  int change_people(char* people); //change who is going
-  //set location of event:
-  int set_location(int street_num, char* street, char* city, char* state);
-  //change location of event:
-  int change_location(int street_num, char* street, char* city, char* state);
-  int display_time(); //display the time of the event
-  int display_place(); //display the location of the event
-
-  //date functions:
-  int change_date(int date);
-  int display_date();
-  int compare(int to_compare);
-
-  //time functions
-  int change_start_time(int time, bool is_pm);
-  int set_duration(int duration);
-  int change_duration(int duration);
-  int display();
-  int compare(int time, bool is_pm);
+  
+  //read location of event:
+  void read();
+  void fun_fact(); //a function to print out a made up fun fact about the address
+  void display();
 protected:
-  char* name; //name of event
-  char* people_going; //who is going
-
   //pieces of an address:
   int street_num;
   char* street;
   char* city;
   char* state;
-
-  int date; //represented in 6 digits
-  int time; //represented in 4 digits (hours and mins)
-  bool is_pm;
-  int duration; //represented in 4 digits (hours and mins)
+  char* name; //name of event
+  char* people_going; //who is going
 };
 
 class Beach : public Event {
 public:
   Beach(); //constructor
-  Beach(char* items, char* directions, char* food); //set up beach details
   Beach(const Beach & source); //copy constructor
   ~Beach(); //destructor
-  int add_items(char* new_items); //add items to a vector of what to bring
-  int remove_items(char* to_remove); //remove items from the vector
-  int change_directions(char* new_directions); //change directions to the beach
-  int change_food_plans(char* new_plans); //change your food plans
-  int display(); //display beach plan info
+  Beach(std::vector<std::string> items, char* directions, std::string food);
+  void add_items(char* new_items); //add items to a vector of what to bring
+  void remove_items(char* to_remove); //remove items from the vector
+  void display(); //display beach plan info
+  void check_weather(); //displays a pretend weather forecast
 protected:
-  std::vector<std::string> items_to_bring; //a vector to store what to bring
+  std::vector<std::string> * items_to_bring; //a vector to store what to bring
   char* directions; //directions to the beach
-  std::string food_plans; //what you are going to do for food
+  char* food_plans; //what you are going to do for food
 };
 
 
 class Shopping : public Event {
 public:
   Shopping(); //constructor
-  Shopping(char* stores, char* to_buy, int budget); //set up shopping details
-  Shopping(const Shopping & source); //copy constructor
   ~Shopping(); //destructor
-  int add_stores(char* to_add); //add stores to the array of LLL
-  int remove_stores(char* to_remove); //remove stores from the array of LLL
-  int add_items(char* to_add); //add items to the array of LLL
-  int remove_items(char* to_remove); //remove items from the LLL
-  int change_budget(int new_budget); //change the budget
-  int display(); //display shopping details
+  Shopping(std::string stores, std::string buy_list, int budget);
+  void add_stores(std::string to_add); //add stores to the array of LLL
+  void remove_stores(std::string to_remove); //remove stores from the array of LLL
+  void add_items(std::string to_add); //add items to the array of LLL
+  void remove_items(std::string to_remove); //remove items from the LLL
+  void display(); //display shopping details
 protected:
-  char* stores; //what stores to visit
-  char* what_to_buy; //shopping list
+  std::string stores; //what stores to visit
+  std::string what_to_buy; //shopping list
   int budget; //how much you want to spend
 };
 
 class Restaurant : public Event {
 public:
   Restaurant(); //constructor
-  Restaurant(char* cuisine, char* name, int budget); //set up restaurant details
-  Restaurant(const Restaurant & source); //copy constructor
   ~Restaurant(); //destructor
-  int change_cuisine(char* new_cuisine); //change cuisine
-  int change_restaurant(char* new_name); //change restaurant
-  int change_budget(int new_budget); //change budget
-  int display(); //display restaurant details
+  void read();
+  void display(); //display restaurant details
+  void make_reservation(int time);
 protected:
-  char* cuisine_type; //type of restaurant
-  char* name; //name of restaurant
+  std::string cuisine_type; //type of restaurant
+  std::string name; //name of restaurant
   int budget; //how much you want to spend
 };
