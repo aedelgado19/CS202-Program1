@@ -13,7 +13,7 @@
 //******************* TIME FUNCTIONS *****************
 
 //constructor with initialization list to initialize all fields
-Time::Time() : date(0), event_time(0), is_pm(false){
+Time::Time() : date(""), event_time(""), is_pm(false){
 
 }
 
@@ -27,17 +27,14 @@ void Time::read(){
   std::cout << "Please use 6 digits (MMDDYY) to represent the date." << std::endl;
   std::cout << "Example: August 1, 2021 would be 080121." << std::endl;
   std::getline(std::cin, d);
-  std::cin.ignore(1000, '\n');
   date = d;
   std::cout << "Enter the time of this event. " << std::endl;
   std::cout << "Please use 4 digits (HHMM) where H = hours and M = mins" << std::endl;
   std::cout << "   Example: 4:30 would be 0430" << std::endl;
   std::getline(std::cin, t);
-  std::cin.ignore(1000, '\n');
   event_time = t;
   std::cout << "Is this event in the am or pm? (am/pm)" << std::endl;
   std::getline(std::cin, ampm);
-  std::cin.ignore(1000, '\n');
   if(ampm == "am"){
     is_pm = false;
   } else {
@@ -317,15 +314,13 @@ void Restaurant::read(){
   
   std::cout << "Enter the name of the restaurant." << std::endl;
   std::getline(std::cin, n);
-  std::cin.ignore(1000, '\n');
   name = n;
   std::cout << "Enter the cuisine type of " << n << std::endl;
   std::getline(std::cin, c);
-  std::cin.ignore(1000, '\n');
   cuisine_type = c;
   std::cout << "Enter your budget for the restaurant." << std::endl;
   std::cin >> b;
-  std::cin.ignore(1000, '\n');
+  std::cin.get();
   budget = b;
 }
 
@@ -345,9 +340,18 @@ void Restaurant::display(){
 void Restaurant::contact_info(){
   std::cout << "Restaurant's phone number: ";
   srand(time(NULL));
-  for(int i = 0; i < 10; i++){
+  for(int i = 0; i < 3; i++){
     std::cout << rand() % 10;
   }
+  std::cout << "-";
+  for(int i = 0; i < 3; i++){
+    std::cout << rand() % 10;
+  }
+  std::cout << "-";
+  for(int i = 0; i < 4; i++){
+    std::cout << rand() % 10;
+  }
+  std::cout << " " << std::endl;
 }
 
 //a function to let the user write a yelp review of the restaurant
@@ -360,7 +364,6 @@ void Restaurant::write_yelp_review(){
   std::cin.get();
   std::cout << "Please add a description of your rating. " << std::endl;
   std::getline(std::cin, rating);
-  std::cin.ignore(1000, '\n');
   yelp_review = rating;
   reviewed = true;
 }
