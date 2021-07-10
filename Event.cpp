@@ -296,7 +296,7 @@ void Shopping::display(){
   for(std::vector<std::string>::iterator i = what_to_buy.begin(); i!=what_to_buy.end(); ++i){
     std::cout << (*i) << std::endl;
   }
-  std::cout << "Budget" << budget << std::endl;
+  std::cout << "Budget: " << budget << std::endl;
 }
 
 //******************* RESTAURANT FUNCTIONS *****************
